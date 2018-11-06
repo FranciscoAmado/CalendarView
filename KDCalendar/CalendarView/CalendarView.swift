@@ -124,13 +124,13 @@ public class CalendarView: UIView {
     // MARK: - public
     
     public var displayDate: Date?
-    public var multipleSelectionEnable = true
-    public var marksWeekends = true
+    public var multipleSelectionEnable = false
+    public var marksWeekends = false
     
     public var delegate: CalendarViewDelegate?
     public var dataSource: CalendarViewDataSource?
     
-    public var direction : UICollectionViewScrollDirection = .horizontal {
+    public var direction : UICollectionView.ScrollDirection = .horizontal {
         didSet {
             flowLayout.scrollDirection = direction
             self.collectionView.reloadData()
@@ -189,7 +189,7 @@ public class CalendarView: UIView {
     
     @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
         
-        guard gesture.state == UIGestureRecognizerState.began else {
+        guard gesture.state == UIGestureRecognizer.State.began else {
             return
         }
         
@@ -334,7 +334,7 @@ extension CalendarView {
      */
     public func selectDate(_ date : Date) {
         guard let indexPath = self.indexPathForDate(date) else { return }
-        self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition())
+        self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition())
         self.collectionView(collectionView, didSelectItemAt: indexPath)
     }
     
